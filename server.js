@@ -38,11 +38,12 @@ app.use(cors());
 app.post('/search', async (req, res) => {
   try {
     const query = req.query.q;
+    const offset = req.query.offset;
     const token = await getAccessToken();
 
     const response = await axios.post(
       igdbUrl + 'games',
-      `search "${query}"; fields name, cover.url; limit 10;`,
+      `search "${query}"; fields name, cover.url; limit 10; offset ${offset};`,
       {
         headers: {
           'Client-ID': clientId,

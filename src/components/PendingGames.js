@@ -10,7 +10,9 @@ export const PendingGames = () => {
   }, []);
 
   const fetchGames = async () => {
-    const { data: games, error } = await supabase.from('games').select('*');
+    const { data: games, error } = await supabase
+      .from('pending_games')
+      .select('*');
 
     if (error) {
       console.error('Error fetching games:', error);
@@ -24,7 +26,7 @@ export const PendingGames = () => {
       <h2>Videojuegos pendientes</h2>
       <ul>
         {games.map((game) => (
-          <GameItem key={game.id} game={game} />
+          <GameItem key={game.id} game={game.game_name} />
         ))}
       </ul>
     </div>
